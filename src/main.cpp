@@ -14,9 +14,5 @@ void setup()
 
 void loop()
 {
-  for (int i = 0; i < MENUITEMS; i++)
-  {
-    Controller1.menu(i);
-  }
-  Controller1.Input1.waitforenter("Press enter to restart process");
+    Controller1.menu(Controller1.currentmenuitem);
 }
