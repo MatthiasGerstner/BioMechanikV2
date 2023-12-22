@@ -1,18 +1,22 @@
 #include <Arduino.h>
+#include "O2Sensor.h"
+#include "pressuresensor.h"
 
-// put function declarations here:
-int myFunction(int, int);
+O2Sensor O2Sensor1;
+PressureSensor PressureSensor1;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  O2Sensor1.ads.setGain(GAIN_SIXTEEN);
+  O2Sensor1.ads.begin();
+  Serial.begin(9600);
+  Serial.println("Finished setup");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  Serial.print("O2Sensor1: ");
+  Serial.println(O2Sensor1.measure());
+  Serial.print("PressureSensor1: ");
+  Serial.println(PressureSensor1.measure());
+  delay(1000);
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}
