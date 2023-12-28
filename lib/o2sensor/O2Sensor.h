@@ -8,7 +8,7 @@
 
 struct Geradenparameter{
     float m;
-    float b;
+    float t;
 };
 
 

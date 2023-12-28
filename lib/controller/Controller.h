@@ -4,7 +4,7 @@
 #include "O2Sensor.h"
 #include "pressuresensor.h"
 #include "Input.h"
-#define CALIBRATIONMEASUREMENTS 100
+#define CALIBRATIONMEASUREMENTS 20
 
 struct CalibrationPoint
 {
@@ -17,6 +17,10 @@ class Controller
 private:
     CalibrationPoint calibpoint1[CALIBRATIONMEASUREMENTS], calibpoint2[CALIBRATIONMEASUREMENTS];
     CalibrationPoint calibpoint1_mean, calibpoint2_mean;
+    CalibrationPoint measurement[CALIBRATIONMEASUREMENTS];
+    CalibrationPoint measurement_mean;
+    float O2_pressure_m2,O2_pressure_m1;
+    float deviation, O2_expected;
 public:
     O2Sensor O2Sensor1;
     PressureSensor PressureSensor1;
@@ -25,7 +29,7 @@ public:
     Controller();
     void menu(int menuitem);
     void wait(int seconds);
-    float meanArray();
+    float meanArray(int i);
 };
 
 #endif

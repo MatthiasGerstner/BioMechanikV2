@@ -21,6 +21,6 @@ void O2Sensor::calibrate(float x1, float y1, float x2, float y2){
         return;
     }
     calib_param.m = (y2 - y1) / (x2 - x1);
-    calib_param.b = y1 - calib_param.m * x1;
+    calib_param.t = y1 - calib_param.m * x1;
     return;
 }
