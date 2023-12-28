@@ -4,7 +4,7 @@
 #include "O2Sensor.h"
 #include "pressuresensor.h"
 #include "Input.h"
-#define CALIBRATIONMEASUREMENTS 20
+#define CALIBRATIONMEASUREMENTS 24
 
 struct CalibrationPoint
 {

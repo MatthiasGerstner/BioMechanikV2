@@ -20,7 +20,7 @@ void Controller::menu(int menuitem)
         if (PressureSensor1.measure() < 1.02 && PressureSensor1.measure() > 0.98)
         {
             Serial.println("Waiting 15 seconds for sensor to stabilize");
-            wait(1);
+            wait(15);
             Serial.println("Start Calibration");
             for (int i = 0; i < CALIBRATIONMEASUREMENTS; i++)
             {
@@ -33,6 +33,7 @@ void Controller::menu(int menuitem)
             Serial.print("Mean mV: ");
             Serial.println(calibpoint1_mean.mV_calib);
             currentmenuitem = 3;
+            Serial.println("-------------------------------------------");
         }
         else
         {
@@ -40,17 +41,16 @@ void Controller::menu(int menuitem)
             currentmenuitem = 2;
         }
         break;
-        
+
     case 3:
-        Serial.println("Bring system to known O2 partial pressure");
+        Serial.println("Preasure System with compressed air or flood with O2");
         Input1.waitforenter("Press enter when finished");
-        wait(1);
         Serial.print("Current pressure inside of pot: ");
         Serial.print(PressureSensor1.measure());
         Serial.println(" bar");
         O2_pressure_m2 = Input1.enterNumber("Enter current O2 partial pressure in bar: ");
         Serial.println("Waiting 15 seconds for sensor to stabilize");
-        wait(1);
+        wait(15);
         Serial.println("Start Calibration");
         for (int i = 0; i < CALIBRATIONMEASUREMENTS; i++)
         {
@@ -62,8 +62,9 @@ void Controller::menu(int menuitem)
         calibpoint2_mean.pressure_calib = O2_pressure_m2;
         Serial.print("Mean mV: ");
         Serial.println(calibpoint2_mean.mV_calib);
+        Serial.println("-------------------------------------------");
         currentmenuitem = 4;
-        break;   
+        break;
     case 4: // calculate calibration curve
         Serial.println("Calculating calibration curve");
         O2Sensor1.calibrate(calibpoint1_mean.pressure_calib, calibpoint1_mean.mV_calib, calibpoint2_mean.pressure_calib, calibpoint2_mean.mV_calib);
@@ -71,13 +72,14 @@ void Controller::menu(int menuitem)
         Serial.print(O2Sensor1.calib_param.m);
         Serial.print(" * x + ");
         Serial.println(O2Sensor1.calib_param.t);
+        Serial.println("-------------------------------------------");
         currentmenuitem = 5;
         break;
-    case 5: //compare measurement
+    case 5: // compare measurement
         Serial.println("flood system with O2 at max pressure");
         Input1.waitforenter("Press enter when finished");
         Serial.println("Waiting 15 seconds for sensor to stabilize");
-        wait(1);
+        wait(15);
         Serial.println("Start Calibration");
         for (int i = 0; i < CALIBRATIONMEASUREMENTS; i++)
         {
@@ -91,10 +93,11 @@ void Controller::menu(int menuitem)
         Serial.println(measurement_mean.mV_calib);
         Serial.print("Mean pressure: ");
         Serial.println(measurement_mean.pressure_calib);
+        Serial.println("-------------------------------------------");
         currentmenuitem = 6;
         break;
 
-    case 6: //compare measurement with expected value
+    case 6: // compare measurement with expected value
         O2_expected = O2Sensor1.calib_param.m * measurement_mean.pressure_calib + O2Sensor1.calib_param.t;
         deviation = (O2_expected - measurement_mean.mV_calib) / O2_expected * 100;
         Serial.print("Expected mV: ");
@@ -105,9 +108,10 @@ void Controller::menu(int menuitem)
         Serial.print(deviation);
         Serial.println(" %");
         Input1.waitforenter("Press enter to restart program");
+        Serial.println("-------------------------------------------");
         currentmenuitem = 1;
         break;
-        
+
     default:
         break;
     }
@@ -118,7 +122,9 @@ void Controller::wait(int seconds)
 {
     for (int i = 0; i < seconds; i++)
     {
-        Serial.println(seconds - i);
+        Serial.print(seconds - i);
+        Serial.print(" ");
+        Serial.print('\r');
         delay(1000);
     }
     return;
