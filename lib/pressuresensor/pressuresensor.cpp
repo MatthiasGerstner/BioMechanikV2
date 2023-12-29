@@ -8,7 +8,7 @@ PressureSensor::PressureSensor()
 
 float PressureSensor::measure()
 {
-    V = analogRead(Pressure_Sensor_Pin) * 4.5 / 1024;
-    preasure = ((V) * 245) / 100;
+    V = analogRead(Pressure_Sensor_Pin) * 5.00 / 1024;
+    preasure = (((V-Offset) * 250) * 0.01) + 1.019;
     return preasure;
 }

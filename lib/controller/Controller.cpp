@@ -21,7 +21,7 @@ void Controller::menu(int menuitem)
         {
             Serial.println("Waiting 15 seconds for sensor to stabilize");
             wait(15);
-            Serial.println("Start Calibration");
+            Serial.println("Start Measurement");
             for (int i = 0; i < CALIBRATIONMEASUREMENTS; i++)
             {
                 calibpoint1[i].mV_calib = O2Sensor1.measure();
@@ -51,7 +51,7 @@ void Controller::menu(int menuitem)
         O2_pressure_m2 = Input1.enterNumber("Enter current O2 partial pressure in bar: ");
         Serial.println("Waiting 15 seconds for sensor to stabilize");
         wait(15);
-        Serial.println("Start Calibration");
+        Serial.println("Start Measurement");
         for (int i = 0; i < CALIBRATIONMEASUREMENTS; i++)
         {
             calibpoint2[i].mV_calib = O2Sensor1.measure();
@@ -80,7 +80,7 @@ void Controller::menu(int menuitem)
         Input1.waitforenter("Press enter when finished");
         Serial.println("Waiting 15 seconds for sensor to stabilize");
         wait(15);
-        Serial.println("Start Calibration");
+        Serial.println("Start Measurement");
         for (int i = 0; i < CALIBRATIONMEASUREMENTS; i++)
         {
             measurement[i].mV_calib = O2Sensor1.measure();
