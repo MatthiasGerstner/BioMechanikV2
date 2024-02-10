@@ -10,6 +10,7 @@ void setup()
   Controller1.O2Sensor1.ads.begin();
   Serial.begin(9600);
   Serial.println("Finished setup");
+  Serial.println("Starting menu");
 }
 
 void loop()

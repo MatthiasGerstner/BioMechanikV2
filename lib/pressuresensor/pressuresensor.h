@@ -9,7 +9,7 @@ private:
     float V;
     const float Offset = 0.459;
 public:
-    float preasure;
+    float pressure;
     PressureSensor();
     float measure();
 };

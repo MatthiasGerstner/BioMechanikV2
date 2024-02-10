@@ -19,8 +19,9 @@ private:
     CalibrationPoint calibpoint1_mean, calibpoint2_mean;
     CalibrationPoint measurement[CALIBRATIONMEASUREMENTS];
     CalibrationPoint measurement_mean;
-    float O2_pressure_m2,O2_pressure_m1;
+    float O2_pressure_m2, O2_pressure_m1;
     float deviation, O2_expected;
+
 public:
     O2Sensor O2Sensor1;
     PressureSensor PressureSensor1;
@@ -31,5 +32,4 @@ public:
     void wait(int seconds);
     float meanArray(int i);
 };
-
 #endif
